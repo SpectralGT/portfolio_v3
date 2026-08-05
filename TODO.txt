@@ -1,0 +1,57 @@
+A personal website to showcase all my work. I am an aspiring AI Researcher
+
+The landing page will have a interactive ballpit background, which interacts with the mouse
+
+The website follows neobrutalism
+
+The structure and content should be on the point.
+
+Structure:
+    - Header
+    - About
+    - Experience
+    - Projects
+    - Skills
+    - Achievements
+    - Hackathon Wins
+    - Footer
+
+There is a robot sitting at the footer and alwasy looking at the mouse
+
+
+General Inspi - 
+Header Inspi - 
+Experience Inspi - 
+Landing Page Inspi - 
+Footer Inspi - 
+
+
+
+======= Header =======
+[Logo              Projects | Research | Experience | Writing | Resume | Contact]
+
+======= Quick Overview =======
+
+5+ yr Experience | 5 Hackathon Wins | 20+ Projects | 3 Research Paper | 1 Book
+
+
+======= Lnading Page =======
+
+AI Researcher | ML Engineer | Software Developer
+
+YOUR NAME
+
+Building intelligent systems that combine
+AI research with real-world applications.
+
+[Resume Button] [Contact Button]
+
+
+======= Experience =======
+
+
+======= Projects =======
+
+======= Outside Code =======
+
+======= Footer =======
