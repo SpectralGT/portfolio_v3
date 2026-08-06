@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 const navLinks = [
@@ -13,27 +13,36 @@ const navLinks = [
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   return (
     <header className="sticky top-0 z-50 w-full border-b-(length:--border-width) border-(--foreground) bg-(--background) text-(--foreground)">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-display tracking-tight text-(--foreground)">
+        <Link href="/" className="relative z-50 text-2xl font-display tracking-tight text-(--foreground)" onClick={() => setIsOpen(false)}>
           AS
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center font-mono text-xs gap-8 md:flex">
+        <nav className="hidden items-center gap-2 font-mono text-xs md:flex">
           {navLinks.map((link) => (
             <Link key={link.name} href={link.href} className="group relative overflow-hidden px-3 py-2">
               <span className="relative z-10">{link.name}</span>
 
               <span
                 className="
-                            absolute inset-0 
-                            bg-(--color-1)
-                            -translate-x-full
-                            transition-transform duration-300 ease-out
-                            group-hover:translate-x-0"
+                  absolute inset-0
+                  bg-(--color-1)
+                  -translate-x-full
+                  transition-transform duration-300 ease-out
+                  group-hover:translate-x-0
+                "
               />
             </Link>
           ))}
@@ -43,41 +52,49 @@ export default function Header() {
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="rounded-md border border-(--foreground) px-3 py-1.5 text-sm font-medium text-(--foreground) hover:bg-(--foreground) md:hidden"
           aria-expanded={isOpen}
-          aria-label="Toggle navigation menu"
+          aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+          className="relative z-50 flex h-10 w-10 items-center justify-center md:hidden"
         >
-          {isOpen ? "Close" : "Menu"}
+          <span
+            className={`absolute h-0.75 w-6 rounded-full bg-current origin-center transition-transform duration-300 ease-in-out ${
+              isOpen ? "translate-y-0 rotate-45" : "-translate-y-2 rotate-0"
+            }`}
+          />
+
+          <span
+            className={`absolute h-0.75 w-6 rounded-full bg-current transition-opacity duration-300 ease-in-out ${isOpen ? "opacity-0" : "opacity-100"}`}
+          />
+
+          <span
+            className={`absolute h-0.75 w-6 rounded-full bg-current origin-center transition-transform duration-300 ease-in-out ${
+              isOpen ? "translate-y-0 -rotate-45" : "translate-y-2 rotate-0"
+            }`}
+          />
         </button>
       </div>
 
-      {/* Mobile Navigation Menu */}
-      {isOpen && (
-        <div className="border-t border-[var(--foreground)]/10 bg-[var(--background)] px-4 pt-2 pb-4 md:hidden">
-          <nav className="flex flex-col space-y-2">
+      {/* Fullscreen Mobile Navigation */}
+      <div
+        className={`fixed inset-0 z-40 flex md:hidden transform transition-all duration-500 ease-in-out ${
+          isOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="flex h-full w-full items-center justify-center bg-(--color-1)">
+          <nav className="flex flex-col items-center gap-8 font-display">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="rounded-md px-3 py-2 text-base font-medium text-[var(--foreground)] hover:bg-[var(--foreground)]/5"
+                className="text-4xl uppercase tracking-wider text-(--foreground) transition-all duration-200 hover:scale-105"
               >
                 {link.name}
               </Link>
             ))}
           </nav>
-
-          <div className="mt-4 flex flex-col space-y-2 border-t border-[var(--foreground)]/10 pt-4">
-            <Link
-              href="/signup"
-              onClick={() => setIsOpen(false)}
-              className="rounded-md bg-[var(--color-1)] px-3 py-2 text-center text-base font-medium text-white hover:opacity-90"
-            >
-              Get Started
-            </Link>
-          </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }
