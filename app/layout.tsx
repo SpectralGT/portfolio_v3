@@ -1,15 +1,35 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { JetBrains_Mono, Bebas_Neue, Fira_Sans } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+}
+
+// 1. JetBrains Mono
+const jetbrainsMono = JetBrains_Mono({
+  weight: '700',
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+// 2. Bebas Neue (Single weight font, explicit '400' required)
+const bebasNeue = Bebas_Neue({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+});
+
+// 3. Fira Sans
+const firaSans = Fira_Sans({
+  weight: ['300', '500', '700'],
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -21,9 +41,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`
+          h-full w-dw overflow-x-hidden antialiased
+          `}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body
+        className={`
+          ${jetbrainsMono.variable}
+          ${bebasNeue.variable}
+          ${firaSans.variable}
+          `}
+      >
+        {children}
+      </body>
     </html>
   );
 }
