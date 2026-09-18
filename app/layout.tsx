@@ -32,7 +32,7 @@ const firaSans = Fira_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Atharv Singh | AI Researcher & Builder",
+  title: "Atharv Singh | AI Researcher",
   description:
     "The portfolio of Atharv Singh, an AI researcher and machine learning engineer building useful intelligent systems.",
 };
